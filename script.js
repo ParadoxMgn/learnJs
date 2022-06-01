@@ -1,17 +1,68 @@
 'use strict';
 
-let title = prompt('Как называется ваш проект?');
-const screens = prompt('Какие типы экранов нужно разработать?', 'Простые, Сложные, Интерактивные');
-const screenPrice = +prompt('Сколько будет стоить данная работа?', '12000');
+let title;
+let screens;
+let screenPrice;
 const rollback = 15;
-const adaptive = confirm('Нужен ли адаптив на сайте?');
-const service1 = prompt('Какой дополнительный тип услуги нужен?');
-const servicePrice1 = +prompt('Сколько это будет стоить?');
-const service2 = prompt('Какой дополнительный тип услуги нужен?');
-const servicePrice2 = +prompt('Сколько это будет стоить?');
+let adaptive;
+let fullPrice;
+let service1;
+let service2;
+let servicePercentPrice;
 
-const allServicePrices = function (onePrice, twoPrice) {
-  return onePrice + twoPrice;
+const isNumber = function (num) {
+  num = isNullTrim(num);
+  return !isNaN(parseFloat(num)) && isFinite(num);
+};
+
+const isNullTrim = function (arg) {
+  if (arg !== null) {
+    return arg.trim();
+  } else {
+    return arg;
+  }
+};
+
+const asking = function () {
+  do {
+    title = prompt('Как называется ваш проект?');
+    title = isNullTrim(title);
+  } while (title === "" || title === null);
+
+  do {
+    screens = prompt('Какие типы экранов нужно разработать?', 'Простые, Сложные, Интерактивные');
+    screens = isNullTrim(screens);
+  } while (screens === "" || screens === null);
+
+  do {
+    screenPrice = prompt('Сколько будет стоить данная работа?', '12000');
+  } while (!isNumber(screenPrice));
+
+  screenPrice = +screenPrice;
+  adaptive = confirm('Нужен ли адаптив на сайте?');
+};
+
+const getAllServicePrices = function () {
+  let sum = 0;
+  let servicePrice = 0;
+  for (let i = 1; i <= 2; i++) {
+    if (i === 1) {
+      do {
+        service1 = prompt('Какой дополнительный тип услуги нужен?');
+        service1 = isNullTrim(service1);
+      } while (service1 === "" || service1 === null);
+    } else if (i === 2) {
+      do {
+        service2 = prompt('Какой дополнительный тип услуги нужен?');
+        service2 = isNullTrim(service2);
+      } while (service2 === "" || service2 === null);
+    }
+    do {
+      servicePrice = prompt('Сколько это будет стоить?', (i * 1000));
+    } while (!isNumber(servicePrice));
+    sum += +servicePrice;
+  }
+  return sum;
 };
 
 function getFullPrice(someScreenPrice, allServPrice) {
@@ -19,8 +70,7 @@ function getFullPrice(someScreenPrice, allServPrice) {
 }
 
 function getTitle(correctTitle) {
-  const cutTitle = correctTitle.trim();
-  return cutTitle[0].toUpperCase() + cutTitle.toLowerCase().slice(1);
+  return correctTitle[0].toUpperCase() + correctTitle.toLowerCase().slice(1);
 }
 
 function getServicePercentPrices(someFullPrice, someRollBack) {
@@ -43,9 +93,10 @@ function getRollbackMessage(price) {
   }
 }
 
+asking();
 title = getTitle(title);
-const fullPrice = getFullPrice(screenPrice, allServicePrices(servicePrice1, servicePrice2));
-const servicePercentPrice = getServicePercentPrices(fullPrice, rollback);
+fullPrice = getFullPrice(screenPrice, getAllServicePrices());
+servicePercentPrice = getServicePercentPrices(fullPrice, rollback);
 
 console.log(showTypeOf(title));
 console.log(showTypeOf(fullPrice));
