@@ -76,11 +76,9 @@ function getTitle(correctTitle) {
 function getServicePercentPrices(someFullPrice, someRollBack) {
   return "Стоимость за вычетом процента отката посреднику: " + Math.ceil(someFullPrice - (someFullPrice * (someRollBack / 100)).toFixed(2));
 }
-
 function showTypeOf(param) {
   return param + " " + typeof param;
 }
-
 function getRollbackMessage(price) {
   if (price > 30000) {
     return 'Даем скидку в 10%';
