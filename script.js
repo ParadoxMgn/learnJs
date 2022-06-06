@@ -24,7 +24,7 @@ const appData = {
   asking: function () {
     do {
       appData.title = appData.isNullTrim(prompt('Как называется ваш проект?'));
-    } while (appData.title === "" || appData.title === null || appData.isNumber(appData.title));
+    } while (appData.title === "" || appData.title === null || !(/[a-zа-я]+/i.test(appData.title)));
 
     for (let i = 0; i < 2; i++) {
       let name = '';
@@ -32,7 +32,7 @@ const appData = {
 
       do {
         name = appData.isNullTrim(prompt('Какие типы экранов нужно разработать?'));
-      } while (name === "" || name === null || appData.isNumber(appData.title));
+      } while (name === "" || name === null || !(/[a-zа-я]+/i.test(name)));
 
       do {
         price = prompt('Сколько будет стоить данная работа?');
@@ -49,7 +49,7 @@ const appData = {
 
       do {
         name = appData.isNullTrim(prompt('Какой дополнительный тип услуги нужен?'));
-      } while (name === "" || name === null || appData.isNumber(appData.title));
+      } while (name === "" || name === null || !(/[a-zа-я]+/i.test(name)));
 
       do {
         price = prompt('Сколько это будет стоить?');
