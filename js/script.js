@@ -38,7 +38,6 @@ const appData = {
   },
   start: function () {
     appData.testNull();
-    console.log(appData.check);
 
     if (appData.check) {
       appData.addScreens();
