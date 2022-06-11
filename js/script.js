@@ -123,7 +123,7 @@ const appData = {
     }, 0);
 
     const sumPercent = Object.values(appData.servicesPercent).reduce(function (sum, item) {
-      return sum + item;
+      return sum + (appData.screenPrice * (item / 100));
     }, 0);
 
     appData.allServicePrices = +sumNumber + sumPercent;
