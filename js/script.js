@@ -37,29 +37,29 @@ const appData = {
   servicePercentPrice: 0,
   init: function () {
     this.addTitle();
-    startBtn.addEventListener('click', this.start);
-    btnAdd.addEventListener('click', this.addScreenBlock);
-    inputRollback.addEventListener('input', this.addRollBack);
-    btnReset.addEventListener('click', this.reset);
-    cmsOpen.addEventListener('click', this.cmsCheck);
-    selectCms.addEventListener('change', this.selectedCms);
+    startBtn.addEventListener('click', this.start.bind(this));
+    btnAdd.addEventListener('click', this.addScreenBlock.bind(this));
+    inputRollback.addEventListener('input', this.addRollBack.bind(this));
+    btnReset.addEventListener('click', this.reset.bind(this));
+    cmsOpen.addEventListener('click', this.cmsCheck.bind(this));
+    selectCms.addEventListener('change', this.selectedCms.bind(this));
   },
   start: function (e) {
-    appData.testNull();
+    this.testNull();
 
-    if (appData.check) {
-      appData.addScreens();
-      appData.addServices();
-      appData.addPrices();
-      appData.showResult(e);
-      appData.disabled(e);
+    if (this.check) {
+      this.addScreens();
+      this.addServices();
+      this.addPrices();
+      this.showResult(e);
+      this.disabled(e);
     }
   },
   reset: function (e) {
-    appData.disabled(e);
-    appData.addRollBack(e);
-    appData.showResult(e);
-    appData.cmsCheck(e);
+    this.disabled(e);
+    this.addRollBack(e);
+    this.showResult(e);
+    this.cmsCheck(e);
   },
   disabled: function (e) {
     if (e.target === startBtn) {
@@ -242,13 +242,13 @@ const appData = {
   addRollBack: function (e) {
     if (e.target === inputRollback) {
       spanRollback.innerText = `${e.target.value}%`;
-      appData.rollback = spanRollback.textContent.slice(0, -1);
+      this.rollback = spanRollback.textContent.slice(0, -1);
     }
     if (e.target === btnReset) {
       inputRollback.disabled = false;
       spanRollback.innerText = '0%';
       inputRollback.value = 0;
-      appData.rollback = 0;
+      this.rollback = 0;
     }
   },
   cmsCheck: function (e) {
@@ -275,19 +275,19 @@ const appData = {
       case 1:
         cmsOtherInput.value = "";
         cmsBlockInput.style.display = 'none';
-        appData.serviceCms = selectCms[selectCms.options.selectedIndex].value / 100;
+        this.serviceCms = selectCms[selectCms.options.selectedIndex].value / 100;
         break;
       case 2:
-        appData.serviceCms = 0;
+        this.serviceCms = 0;
         cmsBlockInput.style.display = 'flex';
         cmsOtherInput.addEventListener('input', () => {
-          appData.serviceCms = +cmsOtherInput.value / 100;
+          this.serviceCms = +cmsOtherInput.value / 100;
         });
         break;
       default:
         cmsOtherInput.value = "";
         cmsBlockInput.style.display = 'none';
-        appData.serviceCms = 0;
+        this.serviceCms = 0;
         break;
     }
   },
