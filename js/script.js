@@ -257,6 +257,9 @@ const appData = {
         hiddenCmsVariants.style.display = 'flex';
       } else {
         hiddenCmsVariants.style.display = 'none';
+        selectCms.selectedIndex = 0;
+        cmsBlockInput.style.display = 'none';
+        cmsOtherInput.value = "";
       }
     }
     if (e.target === btnReset) {
@@ -280,7 +283,7 @@ const appData = {
       case 2:
         this.serviceCms = 0;
         cmsBlockInput.style.display = 'flex';
-        cmsOtherInput.addEventListener('input', () => {
+        cmsOtherInput.addEventListener('blur', () => {
           this.serviceCms = +cmsOtherInput.value / 100;
         });
         break;
