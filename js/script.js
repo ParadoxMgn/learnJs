@@ -141,15 +141,18 @@ const appData = {
 
       if (price[price.selectedIndex].textContent === 'Тип экранов' || this.isNullTrim(count.value) === '' || !this.isNumber(count.value)) {
         this.check = false;
+        alert('Выберите типы экранов и их количество(в цифрах)');
       }
     });
 
     if (cmsOpen.checked) {
       if (!selectCms.selectedIndex) {
         this.check = false;
+        alert('Выберите тип CMS');
       }
       if (selectCms.selectedIndex === 2 && (this.isNullTrim(cmsOtherInput.value) === '' || !this.isNumber(cmsOtherInput.value))) {
         this.check = false;
+        alert('Укажите количество % стоимости CMS');
       }
     }
   },
